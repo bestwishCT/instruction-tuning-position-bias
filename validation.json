@@ -1,0 +1,70 @@
+{
+  "status": "ranges_valid",
+  "errors": [],
+  "semantic": "not_evaluated",
+  "excerpts": [
+    {
+      "decision": "D1",
+      "source_id": "B-P9",
+      "start_line": 22,
+      "end_line": 33,
+      "text": "Figure 10 compares the multi-document QA\nperformance of MPT-30B and MPT-30B-Instruct\nas a function of the position of the relevant in-\nformation in the input context. Surprisingly, we\nsee that both MPT-30B and MPT-30B-Instruct\nexhibit a U-shaped performance curve, where per-\nformance is highest when relevant information\noccurs at the very beginning or very end of the\ncontext. Although the absolute performance of\nMPT-30B-Instruct is uniformly higher than that\nof MPT-30B, their overall performance trends\nare similar. We also observe that instruction"
+    },
+    {
+      "decision": "D1",
+      "source_id": "B-P9",
+      "start_line": 36,
+      "end_line": 45,
+      "text": "Figure 10: Multi-document QA performance of\nMPT-30B-Instruct compared against its base model\n(i.e., before instruction fine-tuning) MPT-30B. Both\nmodels have a U-shaped performance curve, where\nperformance is much higher when relevant information\noccurs at the start or end of the input context, indicat-\ning that the instruction fine-tuning process itself is not\nnecessarily responsible for these performance trends.\nbase model best- and worst-case performance to\naround 4%."
+    },
+    {
+      "decision": "D2",
+      "source_id": "B-P9",
+      "start_line": 30,
+      "end_line": 35,
+      "text": "context. Although the absolute performance of\nMPT-30B-Instruct is uniformly higher than that\nof MPT-30B, their overall performance trends\nare similar. We also observe that instruction\nfine-tuning slightly reduces the worst-case per-\nformance disparity from nearly 10% between the"
+    },
+    {
+      "decision": "D2",
+      "source_id": "B-P9",
+      "start_line": 34,
+      "end_line": 45,
+      "text": "fine-tuning slightly reduces the worst-case per-\nformance disparity from nearly 10% between the\nFigure 10: Multi-document QA performance of\nMPT-30B-Instruct compared against its base model\n(i.e., before instruction fine-tuning) MPT-30B. Both\nmodels have a U-shaped performance curve, where\nperformance is much higher when relevant information\noccurs at the start or end of the input context, indicat-\ning that the instruction fine-tuning process itself is not\nnecessarily responsible for these performance trends.\nbase model best- and worst-case performance to\naround 4%."
+    },
+    {
+      "decision": "D3",
+      "source_id": "B-P9",
+      "start_line": 64,
+      "end_line": 71,
+      "text": "To better understand the effect of additional\nfine-tuning and model scale, we also experimented\nwith Llama-2 models of varying sizes (7B, 13B,\nand 70B) with and without additional supervised\nfine-tuning and reinforcement learning from hu-\nman feedback (Appendix E). We find that the\nU-shaped performance curve only appears in suf-\nficiently large language models (with or without"
+    },
+    {
+      "decision": "D3",
+      "source_id": "B-P10",
+      "start_line": 1,
+      "end_line": 10,
+      "text": "additional fine-tuning)—the 7B Llama-2 models\nare solely recency-biased, while the 13B and 70B\nmodels exhibit a U-shaped performance curve.\nIn addition, we see that the Llama-2 supervised\nfine-tuning and reinforcement learning from hu-\nman feedback procedure slightly mitigates the\npositional bias in smaller models (13B, akin to\ntrends shown when comparing MPT-30B and\nMPT-30B-Instruct), but minimally affects trends\non larger models (70B)."
+    },
+    {
+      "decision": "D4",
+      "source_id": "B-P9",
+      "start_line": 36,
+      "end_line": 43,
+      "text": "Figure 10: Multi-document QA performance of\nMPT-30B-Instruct compared against its base model\n(i.e., before instruction fine-tuning) MPT-30B. Both\nmodels have a U-shaped performance curve, where\nperformance is much higher when relevant information\noccurs at the start or end of the input context, indicat-\ning that the instruction fine-tuning process itself is not\nnecessarily responsible for these performance trends."
+    },
+    {
+      "decision": "D4",
+      "source_id": "B-P9",
+      "start_line": 30,
+      "end_line": 35,
+      "text": "context. Although the absolute performance of\nMPT-30B-Instruct is uniformly higher than that\nof MPT-30B, their overall performance trends\nare similar. We also observe that instruction\nfine-tuning slightly reduces the worst-case per-\nformance disparity from nearly 10% between the"
+    },
+    {
+      "decision": "D4",
+      "source_id": "B-P9",
+      "start_line": 46,
+      "end_line": 63,
+      "text": "These observations complement prior work,\nwhich found that non-instruction fine-tuned lan-\nguage models are biased towards recent tokens\n(i.e., the end of the input context; Khandelwal\net al., 2018; Press et al., 2021). This recency bias\nhas been observed in past work when evaluat-\ning models on next-word prediction of contiguous\ntext, a setting where language models minimally\nbenefit from long-range information (Sun et al.,\n2021). In contrast, our results show that language\nmodels are capable of using longer-range informa-\ntion (i.e., the beginning of the input context) when\nprompted with instruction-formatted data. We hy-\npothesize that non-instruction fine-tuned language\nmodels learn to use these long contexts from sim-\nilarly formatted data that may occur in Internet\ntext seen during pre-training, e.g., StackOverflow\nquestions and answers."
+    }
+  ]
+}

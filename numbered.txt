@@ -1,0 +1,162 @@
+SOURCE B-P9 physical PDF page 9
+1: Figure 9: Query-aware contextualization (placing the
+2: query before and after the documents) does not
+3: substantially improve robustness of language mod-
+4: els to changing the position of relevant information
+5: in multi-document QA; performance slightly increases
+6: when relevant information occurs at the very beginning,
+7: but otherwise slightly decreases.
+8: undergo supervised fine-tuning on a dataset of
+9: instructions and responses. The task specifica-
+10: tion and/or instruction is commonly placed at
+11: the beginning of the input context in super-
+12: vised instruction fine-tuning data, which might
+13: lead instruction fine-tuned language models to
+14: place more weight on the start of the input
+15: context. To better understand the potential ef-
+16: fects of instruction fine-tuning on how language
+17: models use long input contexts, we compare the
+18: multi-document question answering performance
+19: of MPT-30B-Instruct against its base model (i.e.,
+20: before instruction fine-tuning) MPT-30B. We use
+21: the same experimental setup as §2.
+22: Figure 10 compares the multi-document QA
+23: performance of MPT-30B and MPT-30B-Instruct
+24: as a function of the position of the relevant in-
+25: formation in the input context. Surprisingly, we
+26: see that both MPT-30B and MPT-30B-Instruct
+27: exhibit a U-shaped performance curve, where per-
+28: formance is highest when relevant information
+29: occurs at the very beginning or very end of the
+30: context. Although the absolute performance of
+31: MPT-30B-Instruct is uniformly higher than that
+32: of MPT-30B, their overall performance trends
+33: are similar. We also observe that instruction
+34: fine-tuning slightly reduces the worst-case per-
+35: formance disparity from nearly 10% between the
+36: Figure 10: Multi-document QA performance of
+37: MPT-30B-Instruct compared against its base model
+38: (i.e., before instruction fine-tuning) MPT-30B. Both
+39: models have a U-shaped performance curve, where
+40: performance is much higher when relevant information
+41: occurs at the start or end of the input context, indicat-
+42: ing that the instruction fine-tuning process itself is not
+43: necessarily responsible for these performance trends.
+44: base model best- and worst-case performance to
+45: around 4%.
+46: These observations complement prior work,
+47: which found that non-instruction fine-tuned lan-
+48: guage models are biased towards recent tokens
+49: (i.e., the end of the input context; Khandelwal
+50: et al., 2018; Press et al., 2021). This recency bias
+51: has been observed in past work when evaluat-
+52: ing models on next-word prediction of contiguous
+53: text, a setting where language models minimally
+54: benefit from long-range information (Sun et al.,
+55: 2021). In contrast, our results show that language
+56: models are capable of using longer-range informa-
+57: tion (i.e., the beginning of the input context) when
+58: prompted with instruction-formatted data. We hy-
+59: pothesize that non-instruction fine-tuned language
+60: models learn to use these long contexts from sim-
+61: ilarly formatted data that may occur in Internet
+62: text seen during pre-training, e.g., StackOverflow
+63: questions and answers.
+64: To better understand the effect of additional
+65: fine-tuning and model scale, we also experimented
+66: with Llama-2 models of varying sizes (7B, 13B,
+67: and 70B) with and without additional supervised
+68: fine-tuning and reinforcement learning from hu-
+69: man feedback (Appendix E). We find that the
+70: U-shaped performance curve only appears in suf-
+71: ficiently large language models (with or without
+72: 165
+
+SOURCE B-P10 physical PDF page 10
+1: additional fine-tuning)—the 7B Llama-2 models
+2: are solely recency-biased, while the 13B and 70B
+3: models exhibit a U-shaped performance curve.
+4: In addition, we see that the Llama-2 supervised
+5: fine-tuning and reinforcement learning from hu-
+6: man feedback procedure slightly mitigates the
+7: positional bias in smaller models (13B, akin to
+8: trends shown when comparing MPT-30B and
+9: MPT-30B-Instruct), but minimally affects trends
+10: on larger models (70B).
+11: 5 Is More Context Is Always Better?
+12: A Case Study With Open-Domain QA
+13: Our results indicate that prompting lan-
+14: guage models with longer input contexts is a
+15: trade-off—providing the language model with
+16: more information may help it perform the
+17: downstream task, but it also increases the amount
+18: of content that the model must reason over, po-
+19: tentially decreasing accuracy. Even if a language
+20: model can take in 16K tokens, is it actually
+21: beneficial to provide 16K tokens of context? The
+22: answer to this question is ultimately downstream
+23: task-specific since it depends on the marginal
+24: value of the added context and the model’s ability
+25: to effectively use long input contexts, but we
+26: perform a case study with open-domain question
+27: answering on NaturalQuestions-Open to better
+28: understand this trade-off in existing language
+29: models.
+30: We use language models in a standard
+31: retriever-reader setup. A retrieval system (Con-
+32: triever, fine-tuned on MS-MARCO) takes an input
+33: query from NaturalQuestions-Open and returns
+34: the
+35: k documents from Wikipedia with the highest
+36: relevance score. To condition language models
+37: on these retrieved documents, we simply include
+38: them in the prompt. We evaluate retriever recall
+39: and reader accuracy (whether any of the annotated
+40: answers appear in the predicted output) as a func-
+41: tion of the number of retrieved documents
+42: k.W e
+43: use a subset of NaturalQuestions-Open where the
+44: long answer is a paragraph (as opposed to a table
+45: or a list).
+46: Figure 11 presents retriever recall and
+47: open-domain QA results. We see that reader
+48: model performance saturates long before retriever
+49: performance saturates, indicating that readers
+50: are not effectively using the extra context.
+51: Using more than 20 retrieved documents only
+52: marginally improves reader performance (∼1.5%
+53: Figure 11: Retriever recall and model performance as a
+54: function of the number of retrieved documents. Model
+55: performance saturates long before retriever recall, in-
+56: dicating that the models have difficulty making use of
+57: the extra retrieved documents.
+58: for GPT-3.5-Turbo and ∼1% for Claude-1.3),
+59: while significantly increasing the input context
+60: length (and thus latency and cost). These results,
+61: coupled with the observation that models are
+62: often better at retrieving and using information
+63: at the start or end of the input contexts, suggest
+64: that effective reranking of retrieved documents
+65: (pushing relevant information closer to the start
+66: of the input context) or ranked list truncation
+67: (retrieving fewer documents when appropriate;
+68: Arampatzis et al., 2009) may be promising direc-
+69: tions for improving how language-model-based
+70: readers use retrieved context.
+71: 6 Related Work
+72: 6.1 Long-Context Language Models
+73: There is much prior work in designing perfor-
+74: mant language models with cheaper scaling than
+75: Transformers in the context length. Many lines of
+76: work pursue Transformer variants with attention
+77: modifications like recurrence (Dai et al., 2019),
+78: factorizing attention into computationally less
+79: intensive approximations (Beltagy et al., 2020;
+80: Zaheer et al., 2020), or low-rank approximations
+81: (Wang et al., 2020; Peng et al., 2021). Dao et al.
+82: (2022) instead provide a faster exact attention by
+83: a carefully-crafted IO-aware CUDA kernel. Sepa-
+84: rately, there are attempts to do away with attention
+85: entirely to remove quadratic sequence length com-
+86: plexity, often through convolution and/or linear
+87: 166

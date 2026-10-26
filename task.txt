@@ -1,0 +1,2 @@
+D1说明MPT-30B与Instruct的实验比较和共同曲线；D2区分绝对表现更高与位置鲁棒性，解释近10%到约4%的差异；D3说明Llama2规模及微调的不同趋势；D4判断是否可推出指令微调无用或是U形偏差唯一原因。
+只根据所供原文。输出严格JSON，含decisions数组，id为D1至D4，各含answer、evidence数组（source_id、start_line、end_line整数且含两端）和limitations。无需重抄原文，按行定位。证据不足须明说。约1000中文字。
